@@ -1,0 +1,12 @@
+{
+  "name": "分析Excel并生成Word报告和PPT",
+  "params": {"excel": "test_data/销售数据.xlsx"},
+  "steps": [
+    {"id": "summary", "script": "scripts/excel_summary.py",
+     "args": {"input": "{{params.excel}}", "output": "outputs/摘要.json"}},
+    {"id": "docx", "script": "scripts/json_to_docx.py",
+     "args": {"input": "{{steps.summary.outputs.summary_json}}", "output": "outputs/分析报告.docx"}},
+    {"id": "pptx", "script": "scripts/json_to_pptx.py",
+     "args": {"input": "{{steps.summary.outputs.summary_json}}", "output": "outputs/汇报.pptx"}}
+  ]
+}
